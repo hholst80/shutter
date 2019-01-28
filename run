@@ -1,0 +1,13 @@
+#!/bin/sh
+IMAGE=hholst80/shutter:latest
+GID=${GROUPS[0]}                        # Potential Bashism?
+RM=--rm
+docker run -d $RM \
+       -e DISPLAY                       \
+       -e HOME                          \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -v /etc/passwd:/etc/passwd       \
+       -v ${HOME}:${HOME}               \
+       -u ${UID}:${GID}                 \
+       -w ${HOME}                       \
+       $IMAGE
